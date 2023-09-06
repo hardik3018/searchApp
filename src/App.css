@@ -1,0 +1,26 @@
+.search-bar-container {
+    display: flex;
+    flex-flow: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+#search-icon {
+    margin-left: 5%;
+}
+
+input {
+    background-color: rgb(247, 247, 247);
+    margin-left: 5%;
+}
+
+input:focus {
+    outline: none;
+    background-color: rgb(234, 233, 233);
+}
+
+.b:focus {
+    border: none;
+
+}
