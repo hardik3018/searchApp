@@ -1,7 +1,7 @@
 import { useState , useEffect} from "react";
 import { Button } from "react-bootstrap";
 import { FaSearch } from 'react-icons/fa';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -9,7 +9,7 @@ export const SearchBar = ({ setResults }) => {
   const [input, setInput] = useState("");
   const [yearFilter, setyearFilter] = useState("All");
   const [data , setData] = useState([]);
-  const history = useHistory();
+  // const history = useHistory();
 
   const year = [
     "2013", "2014" , "2015" , "2016" , "2017" , "2018", "2019" , "2020"
@@ -54,11 +54,11 @@ export const SearchBar = ({ setResults }) => {
     fetchData(input, year === yearFilter ? "All" : year);
   };
 
-  useEffect(() => {
-    // Filter data based on stateFilter and yearFilter    
+  // useEffect(() => {
+  //   // used to push data to history
 
-    history.push(`/filtered-results/${input}/${yearFilter}`);
-  }, [data, input, yearFilter, history]);
+  //   history.push(`/filtered-results/${input}/${yearFilter}`);
+  // }, [data, input, yearFilter, history]);
 
 
   return (

@@ -3,7 +3,6 @@ import "./App.css";
 import { useState } from "react";
 import { SearchBar } from "./components/searchBar";
 import { SearchResultsList } from "./components/searchResultList";
-// import { MyApp } from "./components/myApp";
 
 import { Routes, Route } from "react-router-dom";
 
