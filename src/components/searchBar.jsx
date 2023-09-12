@@ -2,13 +2,13 @@ import { useState, useEffect} from "react";
 import { Button } from "react-bootstrap";
 import { FaSearch } from 'react-icons/fa';
 import { useParams, useNavigate } from 'react-router-dom';
-// import { useHistory } from 'react-router-dom';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export const SearchBar = ({ setResults, data }) => {
 
   const navigate = useNavigate();
+  
   const {year = 'ALL' , stateString = ''} = useParams();
   const [stateInput, setStateInput] = useState(stateString);
   const [yearFilter, setyearFilter] = useState(year);
@@ -17,20 +17,23 @@ export const SearchBar = ({ setResults, data }) => {
   const years = [
     "2013", "2014" , "2015" , "2016" , "2017" , "2018", "2019" , "2020"
   ];
-
+   
   useEffect(() => {
     // Your code here
     const fetchData = (value, yearFilter) => {
+      
       console.log("year: ",yearFilter,"state string : ",value);
-      fetch("https://datausa.io/api/data?drilldowns=State&measures=Population")
-        .then((response) => response.json())
+      
+       fetch("https://datausa.io/api/data?drilldowns=State&measures=Population")
+      
+      .then((response) => response.json())
         .then((obj) => {
           // Inside this callback, obj.data is the fetched data
           const db = obj.data;
     
           const results = db.filter((d) => {
             const titleMatch =
-              value && d.State && d.State.toLowerCase().includes(value.toLowerCase());
+              value && d.State && d.State.toLowerCase().startsWith(value.toLowerCase());
             const yearMatch = yearFilter === "All" || d.Year.match(yearFilter);
             return titleMatch && yearMatch;
           });
@@ -43,12 +46,14 @@ export const SearchBar = ({ setResults, data }) => {
         });
       };
       console.log("fetching data on basis on search click");
+
     fetchData(stateString, year);
     // This code will run only when the dependency array changes that is when url navigation happens which happens when user click search button
   }, [stateString, year]);
 
-  const handleChangeInput = (value) => {
+  function handleChangeInput(value){
     setStateInput(value);
+  
     console.log(value);
   };
 
@@ -69,14 +74,12 @@ export const SearchBar = ({ setResults, data }) => {
       
       
       <input
-        className="w-75  shadow-sm border-0  p-2 rounded"
+        className="w-100 shadow-sm border-0  p-2 rounded"
         placeholder="Type to search..."
         value={stateInput}
         onChange={(e) => handleChangeInput(e.target.value)}
       />
-      <FaSearch id="search-icon" className="h-100 ml-2" 
-       onClick={() => handleClickSearch()}
-       />
+      
       
     </div>
 
@@ -97,11 +100,27 @@ export const SearchBar = ({ setResults, data }) => {
           </Button>
         ))}
         </div>
+
+
+        
+      </div>
+
+      <div className="m-4 col-2 d-flex justify-content-center flex-column " >
+        <Button className=" ml-2" 
+       onClick={() => handleClickSearch()}
+       > Search
+         <FaSearch id="search-icon" className="h-100 ml-2" 
+
+       />
+        </Button>
+
+        </div>
+
         <div className="mx-auto mt-5">
           <p >Selected year: {yearFilter}</p>
         </div>
-        
-      </div>
+
+      
 
     </>
   );
